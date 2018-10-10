@@ -10,14 +10,19 @@
         <v-form>
           <v-text-field
             label="E-mail"
+            v-model="email"
             required
           />
           <v-text-field
             label="Password"
             :type="'password'"
+            v-model="password"
             required
           />
-          <v-btn color="info">Login</v-btn>
+          <v-btn
+                  color="info"
+                  @click="auth"
+          >Login</v-btn>
           <v-btn color="warning">Clear</v-btn>
         </v-form>
       </v-card>
@@ -26,12 +31,20 @@
 </template>
 
 <script lang="ts">
-  import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
-  @Component({
-    name: "Login"
-  })
-  export default class Login extends Vue {}
+@Component({
+  name: "Login"
+})
+export default class Login extends Vue {
+  email = "";
+  password = "";
+
+  auth() {
+    console.log(`email: ${this.email}`);
+    console.log(`password: ${this.password}`);
+  }
+}
 </script>
 
 <style scoped>
