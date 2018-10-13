@@ -32,6 +32,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import axios from "axios";
 
 @Component({
   name: "Login"
@@ -43,6 +44,19 @@ export default class Login extends Vue {
   auth() {
     console.log(`email: ${this.email}`);
     console.log(`password: ${this.password}`);
+    axios
+      .post(
+        "http://localhost:8080/api/auth",
+        {
+          email: this.email,
+          password: this.password
+        },
+        {
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   }
 }
 </script>
