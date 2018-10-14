@@ -5,11 +5,12 @@ import Login from "./components/users/Login.vue";
 import CreateUser from "./components/users/CreateUser.vue";
 import NewProject from "./components/projects/NewProject.vue";
 import ProjectList from '@/components/projects/ProjectList.vue'
+import store from '@/store'
 
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -28,9 +29,9 @@ export default new Router({
         import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
-        path: "/login",
-        name: "login",
-        component: Login
+      path: "/login",
+      name: "login",
+      component: Login
     },
     {
       path: "/users/new",
@@ -49,3 +50,14 @@ export default new Router({
     },
   ]
 });
+
+router.beforeEach((to, from, next) => {
+
+  if (to.name !== 'login' && store.getters.isAuthenticated) {
+    console.log(to.name)
+  }
+
+  next();
+});
+
+export default router;

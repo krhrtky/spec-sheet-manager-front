@@ -32,17 +32,45 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import { mapMutations } from "vuex";
+
+import axios from "axios";
+import { Mutation } from "vuex-class";
 
 @Component({
-  name: "Login"
+  name: "Login",
+  methods: {
+    ...mapMutations(["setAuthenticated"])
+  }
 })
 export default class Login extends Vue {
   email = "";
   password = "";
 
-  auth() {
-    console.log(`email: ${this.email}`);
-    console.log(`password: ${this.password}`);
+  @Mutation("setAuthenticated")
+  setAuthenticated!: (payload: {}) => void;
+
+  private auth(): void {
+    axios
+      .post(
+        "http://localhost:8080/api/auth",
+        {
+          email: this.email,
+          password: this.password
+        },
+        {
+          headers: { "Content-Type": "application/json" }
+        }
+      )
+      .then(response => {
+        localStorage.setItem("SSM-TOKEN", response.headers["ssm-token"]);
+        this.$router.push("/projects");
+        this.setAuthenticated({ authenticated: true });
+      })
+      .catch(error => {
+        console.log(error);
+        localStorage.clear();
+      });
   }
 }
 </script>
