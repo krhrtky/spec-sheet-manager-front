@@ -4,9 +4,20 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {
+  state: {
+    isAuthenticated: false,
+  },
+  getters: {
+    isAuthenticated: state => state.isAuthenticated
+
 
   },
-  actions: {}
+  mutations: {
+      setAuthenticated:(state, payload) => {
+        state.isAuthenticated = payload.authenticated ;
+      },
+
+  },
+  actions: {
+  }
 });
