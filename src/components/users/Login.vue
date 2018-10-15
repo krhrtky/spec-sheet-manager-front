@@ -33,7 +33,6 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapMutations } from "vuex";
-
 import axios from "axios";
 import { Mutation } from "vuex-class";
 
@@ -64,8 +63,8 @@ export default class Login extends Vue {
       )
       .then(response => {
         localStorage.setItem("SSM-TOKEN", response.headers["ssm-token"]);
-        this.$router.push("/projects");
         this.setAuthenticated({ authenticated: true });
+        this.$router.push("/projects");
       })
       .catch(error => {
         console.log(error);
