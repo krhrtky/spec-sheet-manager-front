@@ -27,7 +27,7 @@
           </v-list-tile-action>
 
         </v-list-tile>
-        <v-divider :key="project.id"/>
+        <v-divider :key="`divider-${project.id}`"/>
       </template>
     </v-list>
   </v-card>
