@@ -52,12 +52,20 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+  console.log(to)
 
-  if (to.name !== 'login' && store.getters.isAuthenticated) {
-    console.log(to.name)
+  if (to.path === '/login') {
+    console.log('not to login')
+    next()
+  } else if (!store.getters.isAuthenticated) {
+    console.log(!store.getters.isAuthenticated)
+    next({path: '/login'})
+  } else {
+    console.log('is authenticated')
+    next();
+
   }
 
-  next();
 });
 
 export default router;
