@@ -6,6 +6,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     isAuthenticated: false,
+    selectedProject: {},
+    route: {
+      name: '',
+      path: '',
+      hash: '',
+      query: {},
+      params: {
+        id: 0
+      },
+      "fullPath": "/detail/1"
+    },
     projects: [
       {
         id: 1,
@@ -82,13 +93,15 @@ export default new Vuex.Store({
   },
   getters: {
     isAuthenticated: state => state.isAuthenticated,
-    projects: state => state.projects
+    projects: state => state.projects,
+    selectedProject: state => state
+        .projects
+        .find(project => project.id == state.route.params.id)
   },
   mutations: {
-    setAuthenticated:(state, payload) => {
-      state.isAuthenticated = payload.authenticated ;
-    },
-
+    setAuthenticated:(state, {authenticated}) => {
+      state.isAuthenticated = authenticated ;
+    }
   },
   actions: {
   }

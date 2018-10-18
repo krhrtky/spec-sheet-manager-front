@@ -15,7 +15,7 @@
         <v-list-tile
           :key="project.id"
           ripple
-          @click="select"
+          @click="select(project.id)"
         >
           <v-list-tile-content>
             <v-list-tile-title>{{ project.name }}</v-list-tile-title>
@@ -48,7 +48,9 @@ export default class ProjectList extends Vue {
   @Getter("projects")
   projects!: () => any;
 
-  select() {}
+  select(id: number) {
+    this.$router.push({ path: `project/edit/${id}` });
+  }
 }
 </script>
 
