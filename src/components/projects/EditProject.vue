@@ -11,8 +11,8 @@
             v-model="selectedProject.name"
             required
           />
-          <month-picker title="Start Date"/>
-          <month-picker title="End Date"/>
+          <month-picker title="Start Date" :initialDate="selectedProject.startDate"/>
+          <month-picker title="End Date" :initialDate="selectedProject.endDate"/>
           <v-text-field
             label="Languages"
             v-model="selectedProject.languages"
@@ -20,15 +20,18 @@
           />
           <v-text-field
             label="FrameWorks"
+            v-model="selectedProject.frameworks"
             required
           />
           <v-text-field
             label="Middlewares"
+            v-model="selectedProject.middlewares"
             required
           />
           <v-textarea
             auto-grow
             label="Description"
+            v-model="selectedProject.description"
             rows="5"
           ></v-textarea>
           <v-btn color="info">Confirm</v-btn>
