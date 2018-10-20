@@ -34,35 +34,41 @@
 </template>
 
 <script>
-  import {Component, Vue} from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
 
-  @Component({
-    name: "MonthPicker",
-    props: {
-      title: {
-        type: String,
-        default: 'date',
-        require: true
-      }
+@Component({
+  name: "MonthPicker",
+  props: {
+    title: {
+      type: String,
+      default: "date",
+      require: true
+    },
+    initialDate: {
+      type: String,
+      default: null,
+      require: true
     }
-  })
-  export default class MonthPicker extends Vue{
-    data() {
-      return {
-        date: null,
-        menu: false,
-        modal: false
-      }
-    }
-
   }
+})
+export default class MonthPicker extends Vue {
+  data() {
+    return {
+      date: null,
+      menu: false,
+      modal: false
+    };
+  }
+
+  beforeMount() {
+    this.$data.date = this.$props.initialDate;
+  }
+}
 </script>
 
 <style scoped>
-  .v-menu__content > .v-card {
-    margin: initial;
-    padding: initial;
-  }
-
-
+.v-menu__content > .v-card {
+  margin: initial;
+  padding: initial;
+}
 </style>
