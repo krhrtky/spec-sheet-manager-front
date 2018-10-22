@@ -56,7 +56,7 @@ export default new Vuex.Store({
         startDate: '2018-05',
         endDate: '2018-07',
         frameworks: 'spring',
-        middlewares: 'mysql',
+        middlewares: 'postgresql',
         description: 'test project4',
       },
       {
@@ -65,7 +65,7 @@ export default new Vuex.Store({
         languages: 'kotlin',
         startDate: '2018-05',
         endDate: '2018-07',
-        frameworks: 'spring',
+        frameworks: 'struts',
         middlewares: 'mysql',
         description: 'test project5',
       },
@@ -91,7 +91,7 @@ export default new Vuex.Store({
       },
       {
         id: 8,
-        name: 'sample1',
+        name: 'sample8',
         languages: 'kotlin',
         startDate: '2018-05',
         endDate: '2018-07',
@@ -101,7 +101,7 @@ export default new Vuex.Store({
       },
       {
         id: 9,
-        name: 'sample1',
+        name: 'sample9',
         languages: 'kotlin',
         startDate: '2018-05',
         endDate: '2018-07',
@@ -111,7 +111,7 @@ export default new Vuex.Store({
       },
       {
         id: 10,
-        name: 'sample1',
+        name: 'sample10',
         languages: 'kotlin',
         startDate: '2018-05',
         endDate: '2018-07',

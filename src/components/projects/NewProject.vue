@@ -39,21 +39,17 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'vue-property-decorator';
-  import MonthPicker from '@/components/commons/MonthPicker.vue';
+import { Component, Vue } from "vue-property-decorator";
+import MonthPicker from "@/components/commons/MonthPicker.vue";
 
-  @Component({
-    name: 'NewProject',
-    components: {
-      MonthPicker,
-    }
-  })
-  export default class NewProject extends Vue {
-
+@Component({
+  name: "NewProject",
+  components: {
+    MonthPicker
   }
-
+})
+export default class NewProject extends Vue {}
 </script>
 
 <style scoped>
-
 </style>

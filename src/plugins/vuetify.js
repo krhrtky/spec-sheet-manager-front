@@ -1,9 +1,11 @@
-import Vue from 'vue'
+import Vue from "vue";
 import {
   transitions,
   VApp,
   VBtn,
   VCard,
+  VCheckbox,
+  VDataTable,
   VDatePicker,
   VDivider,
   VFooter,
@@ -17,9 +19,10 @@ import {
   VTextarea,
   VTextField,
   VToolbar,
-  Vuetify,
-} from 'vuetify'
-import 'vuetify/src/stylus/app.styl'
+  VTooltip,
+  Vuetify
+} from "vuetify";
+import "vuetify/src/stylus/app.styl";
 
 Vue.use(Vuetify, {
   components: {
@@ -40,5 +43,8 @@ Vue.use(Vuetify, {
     VTextarea,
     VDivider,
     VInput,
-  },
-})
+    VDataTable,
+    VTooltip,
+    VCheckbox
+  }
+});
