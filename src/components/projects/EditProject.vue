@@ -34,8 +34,10 @@
             v-model="selectedProject.description"
             rows="5"
           ></v-textarea>
-          <v-btn color="info">Confirm</v-btn>
-          <v-btn color="warning">Cancel</v-btn>
+          <v-btn color="info">Done</v-btn>
+          <router-link :to="{path: '/projects'}">
+            <v-btn color="warning">Cancel</v-btn>
+          </router-link>
         </v-form>
       </v-card>
     </v-flex>

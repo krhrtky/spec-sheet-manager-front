@@ -39,9 +39,21 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>menu</v-icon>
-      </v-btn>
+        <v-btn
+          color="info"
+          v-if="!isAuthenticated"
+          @click="() => this.$router.push('/login')"
+        >
+          Login
+        </v-btn>
+        <v-btn
+          color="info"
+          v-if="isAuthenticated"
+          @click="() => {
+          this.$router.push('/login')
+          }">
+          logout
+        </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -69,59 +81,63 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator";
+import { mapGetters } from "vuex";
+import { Getter } from "vuex-class";
 
-  @Component({
-    name: 'App',
-  })
-  export default class App extends Vue {
-    data () {
-      return {
-        clipped: false,
-        drawer: true,
-        fixed: false,
-        items: [
-          {
-            path: '/',
-            title: 'Home'
-          },
-          {
-            path: '/about',
-            title: 'About'
-          },
-          {
-            path: '/login',
-            title: 'Login'
-          },
-          {
-            path: "/users/new",
-            title: "Sign on",
-          },
-          {
-            path: "/project/new",
-            title: "Add Project",
-          },
-          {
-            path: "/projects",
-            title: "Projects",
-          },
-        ],
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Spec Sheet Manager'
-      }
-    }
+@Component({
+  name: "App",
+  computed: {
+    ...mapGetters(["isAuthenticated"])
   }
+})
+export default class App extends Vue {
+  @Getter("isAuthenticated")
+  isAuthenticated!: () => boolean;
+
+  data() {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false,
+      items: [
+        {
+          path: "/",
+          title: "Home"
+        },
+        {
+          path: "/about",
+          title: "About"
+        },
+        {
+          path: "/users/new",
+          title: "Sign on"
+        },
+        {
+          path: "/project/new",
+          title: "Add Project"
+        },
+        {
+          path: "/projects",
+          title: "Projects"
+        }
+      ],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
+      title: "Spec Sheet Manager"
+    };
+  }
+}
 </script>
 
 <style>
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
 
-  .v-card {
-    margin: 0 10rem;
-    padding: 0 5rem 5rem 5rem;
-  }
+.v-card {
+  margin: 0 20rem;
+  padding: 0 5rem 5rem 5rem;
+}
 </style>
