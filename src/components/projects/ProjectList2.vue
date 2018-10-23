@@ -2,30 +2,35 @@
   <v-card>
     <v-card-title primary-title>
       <h1>Project List</h1>
-    <v-spacer></v-spacer>
-    <v-text-field
-      v-model="search"
-      append-icon="search"
-      label="Search"
-      single-line
-      hide-details
-    ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
     </v-card-title>
-    <v-btn
-      small
-      color="info"
-      :disabled="this.$data.selected.length !== 1"
-      @click="edit"
-    >
-      Edit
-    </v-btn>
-    <v-btn
-      small
-      color="info"
-      :disabled="this.$data.selected.length === 0"
-    >
-      Print
-    </v-btn>
+    <template>
+
+      <v-flex offset-xs8 justify-end>
+          <v-btn
+            small
+            color="info"
+            :disabled="this.$data.selected.length !== 1"
+            @click="edit"
+          >
+            Edit
+          </v-btn>
+          <v-btn
+            small
+            color="info"
+            :disabled="this.$data.selected.length === 0"
+          >
+            Print
+          </v-btn>
+      </v-flex>
+    </template>
 
     <v-data-table
       :headers="headers"
