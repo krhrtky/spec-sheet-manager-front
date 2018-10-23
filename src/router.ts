@@ -5,7 +5,7 @@ import Login from "./components/users/Login.vue";
 import CreateUser from "./components/users/CreateUser.vue";
 import NewProject from "./components/projects/NewProject.vue";
 import EditProject from "./components/projects/EditProject.vue";
-import ProjectList from '@/components/projects/ProjectList.vue'
+import ProjectList from '@/components/projects/ProjectList2.vue'
 
 
 Vue.use(Router);
@@ -57,6 +57,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+
   if (to.path === '/login') {
     console.log('not to login')
     next()
@@ -67,7 +68,6 @@ router.beforeEach((to, from, next) => {
     console.log('is authenticated')
     next();
   }
-
 });
 
 export default router;

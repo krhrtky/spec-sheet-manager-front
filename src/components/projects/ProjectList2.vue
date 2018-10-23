@@ -2,15 +2,35 @@
   <v-card>
     <v-card-title primary-title>
       <h1>Project List</h1>
-    <v-spacer></v-spacer>
-    <v-text-field
-      v-model="search"
-      append-icon="search"
-      label="Search"
-      single-line
-      hide-details
-    ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
     </v-card-title>
+    <template>
+
+      <v-flex offset-xs8 justify-end>
+          <v-btn
+            small
+            color="info"
+            :disabled="this.$data.selected.length !== 1"
+            @click="edit"
+          >
+            Edit
+          </v-btn>
+          <v-btn
+            small
+            color="info"
+            :disabled="this.$data.selected.length === 0"
+          >
+            Print
+          </v-btn>
+      </v-flex>
+    </template>
 
     <v-data-table
       :headers="headers"
@@ -32,7 +52,7 @@
         </v-tooltip>
       </template>
       <template slot="items" slot-scope="props">
-        <tr @click="select(props.item.id)">
+        <tr @click="select(props.item, $event)">
 
           <td>
             <v-checkbox
@@ -83,7 +103,21 @@ export default class ProjectList extends Vue {
     };
   }
 
-  select(id: number) {}
+  select(item: any, event: any) {
+    if (
+      !event.target.classList.contains("v-input--selection-controls__ripple")
+    ) {
+      if (!this.$data.selected.includes(item)) {
+        this.$data.selected.push(item);
+      } else {
+        this.$data.selected.pop(item);
+      }
+    }
+  }
+
+  edit() {
+    this.$router.push({ path: `project/edit/${this.$data.selected[0].id}` });
+  }
 }
 </script>
 
