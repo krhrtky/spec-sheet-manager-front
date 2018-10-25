@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="project-list">
     <v-card-title primary-title>
       <h1>Project List</h1>
       <v-spacer></v-spacer>
@@ -13,9 +13,10 @@
     </v-card-title>
     <template>
 
-      <v-flex offset-xs8 justify-end>
+      <v-layout row wrap>
+
+      <v-flex offset-xs9 >
           <v-btn
-            small
             color="info"
             :disabled="this.$data.selected.length !== 1"
             @click="edit"
@@ -23,13 +24,13 @@
             Edit
           </v-btn>
           <v-btn
-            small
             color="info"
             :disabled="this.$data.selected.length === 0"
           >
             Print
           </v-btn>
       </v-flex>
+      </v-layout>
     </template>
 
     <v-data-table
@@ -122,8 +123,8 @@ export default class ProjectList extends Vue {
 </script>
 
 <style scoped>
-.v-card {
-  height: auto;
+.project-list.v-card {
+  margin: 0;
 }
 
 .v-list {
