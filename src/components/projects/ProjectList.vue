@@ -1,42 +1,82 @@
 <template>
-  <v-card>
+  <v-card class="project-list">
     <v-card-title primary-title>
       <h1>Project List</h1>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="search"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
     </v-card-title>
-    <v-text-field
-      append-icon="search"
-      placeholder="Keyword"
-    />
+    <template>
 
-    <v-list two-line>
-      <template
-        v-for="project in projects"
-      >
-        <v-list-tile
-          :key="project.id"
-          ripple
-          @click="select(project.id)"
-        >
-          <v-list-tile-content>
-            <v-list-tile-title>{{ project.name }}</v-list-tile-title>
-            <v-list-tile-sub-title class="text--primary">{{ project.languages }}</v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-list-tile-action>
-            <v-list-tile-action-text>FROM: {{project.startDate}}</v-list-tile-action-text>
-            <v-list-tile-action-text>TO: {{project.endDate}}</v-list-tile-action-text>
-          </v-list-tile-action>
+      <v-layout row wrap>
 
-        </v-list-tile>
-        <v-divider :key="`divider-${project.id}`"/>
+      <v-flex offset-xs9 >
+          <v-btn
+            color="info"
+            :disabled="this.$data.selected.length !== 1"
+            @click="edit"
+          >
+            Edit
+          </v-btn>
+          <v-btn
+            color="info"
+            :disabled="this.$data.selected.length === 0"
+          >
+            Print
+          </v-btn>
+      </v-flex>
+      </v-layout>
+    </template>
+
+    <v-data-table
+      :headers="headers"
+      :items="projects"
+      :search="search"
+      v-model="selected"
+      item-key="id"
+      select-all
+      class="elevation-1"
+    >
+      <template slot="headerCell" slot-scope="props">
+        <v-tooltip bottom>
+        <span slot="activator">
+          {{ props.header.text }}
+        </span>
+          <span>
+          {{ props.header.text }}
+        </span>
+        </v-tooltip>
       </template>
-    </v-list>
+      <template slot="items" slot-scope="props">
+        <tr @click="select(props.item, $event)">
+
+          <td>
+            <v-checkbox
+              v-model="props.selected"
+              primary
+              hide-details
+            ></v-checkbox>
+          </td>
+          <td>{{ props.item.name }}</td>
+          <td class="text-xs-center">{{ props.item.languages }}</td>
+          <td class="text-xs-left">{{ props.item.frameworks }}</td>
+          <td class="text-xs-left">{{ props.item.middlewares }}</td>
+          <td class="text-xs-left">{{ props.item.startDate }}</td>
+          <td class="text-xs-left">{{ props.item.endDate }}</td>
+        </tr>
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { Getter } from "vuex-class";
 
 @Component({
   name: "ProjectList",
@@ -45,18 +85,46 @@ import { Getter } from "vuex-class";
   }
 })
 export default class ProjectList extends Vue {
-  @Getter("projects")
-  projects!: () => any;
+  data() {
+    return {
+      search: "",
+      selected: [],
+      headers: [
+        {
+          text: "Project Name",
+          align: "left",
+          value: "name"
+        },
+        { text: "Languages", value: "languages" },
+        { text: "FrameWorks", value: "frameworks" },
+        { text: "Middlewares", value: "middlewares" },
+        { text: "Start Date", value: "startDate" },
+        { text: "End Date", value: "endDate" }
+      ]
+    };
+  }
 
-  select(id: number) {
-    this.$router.push({ path: `project/edit/${id}` });
+  select(item: any, event: any) {
+    if (
+      !event.target.classList.contains("v-input--selection-controls__ripple")
+    ) {
+      if (!this.$data.selected.includes(item)) {
+        this.$data.selected.push(item);
+      } else {
+        this.$data.selected.pop(item);
+      }
+    }
+  }
+
+  edit() {
+    this.$router.push({ path: `project/edit/${this.$data.selected[0].id}` });
   }
 }
 </script>
 
 <style scoped>
-.v-card {
-  height: auto;
+.project-list.v-card {
+  margin: 0;
 }
 
 .v-list {

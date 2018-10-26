@@ -106,10 +106,6 @@ export default class App extends Vue {
           title: "Home"
         },
         {
-          path: "/about",
-          title: "About"
-        },
-        {
           path: "/users/new",
           title: "Sign on"
         },
@@ -136,7 +132,7 @@ a {
   text-decoration: none;
 }
 
-.v-card {
+.v-content__wrap .v-card {
   margin: 0 20rem;
   padding: 0 5rem 5rem 5rem;
 }
