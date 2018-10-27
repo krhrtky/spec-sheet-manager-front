@@ -11,14 +11,12 @@
           <v-text-field
             label="E-mail"
             v-model="email"
-            required
-          />
+            required></v-text-field>
           <v-text-field
             label="Password"
             :type="'password'"
             v-model="password"
-            required
-          />
+            required></v-text-field>
           <v-btn
                   color="info"
                   @click="auth"

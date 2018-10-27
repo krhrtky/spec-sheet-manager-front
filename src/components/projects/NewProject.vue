@@ -8,22 +8,18 @@
         <v-form>
           <v-text-field
             label="Project Name"
-            required
-          />
+            required></v-text-field>
           <month-picker title="Start Date"/>
           <month-picker title="End Date"/>
           <v-text-field
             label="Languages"
-            required
-          />
+            required></v-text-field>
           <v-text-field
             label="FrameWorks"
-            required
-          />
+            required></v-text-field>
           <v-text-field
             label="Middlewares"
-            required
-          />
+            required></v-text-field>
           <v-textarea
             auto-grow
             label="Description"
