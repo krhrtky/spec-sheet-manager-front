@@ -54,14 +54,19 @@ import { Component, Vue } from "vue-property-decorator";
 export default class MonthPicker extends Vue {
   data() {
     return {
-      date: null,
       menu: false,
       modal: false
     };
   }
 
-  beforeMount() {
-    this.$data.date = this.$props.initialDate;
+  get date() {
+    return this.initialDate;
+  }
+
+  set date(date) {
+    if (this.initialDate !== date) {
+      this.$emit("input", date);
+    }
   }
 }
 </script>

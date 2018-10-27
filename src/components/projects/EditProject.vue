@@ -10,8 +10,16 @@
             label="Project Name"
             v-model="selectedProject.name"
             required></v-text-field>
-          <month-picker title="Start Date" :initialDate="selectedProject.startDate"/>
-          <month-picker title="End Date" :initialDate="selectedProject.endDate"/>
+          <month-picker
+            title="Start Date"
+            :initialDate="selectedProject.startDate"
+            @input="date => selectedProject.startDate = date"
+            />
+          <month-picker
+            title="End Date"
+            :initialDate="selectedProject.endDate"
+            @input="date => selectedProject.endDate = date"
+            />
           <v-text-field
             label="Languages"
             v-model="selectedProject.languages"
@@ -38,7 +46,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="green darken-1" flat @click.native="dialog = false">Disagree</v-btn>
-                <v-btn color="green darken-1" flat @click.native="dialog = false">Agree</v-btn>
+                <v-btn color="green darken-1" flat @click="submit">Agree</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -78,6 +86,11 @@ export default class EditProject extends Vue {
 
   @Getter("selectedProject")
   selectedProject!: () => any;
+
+  submit() {
+    console.log(this.selectedProject);
+    this.$data.dialog = false;
+  }
 }
 </script>
 
