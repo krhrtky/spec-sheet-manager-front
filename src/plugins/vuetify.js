@@ -7,6 +7,7 @@ import {
   VCheckbox,
   VDataTable,
   VDatePicker,
+  VDialog,
   VDivider,
   VFooter,
   VForm,
@@ -45,6 +46,7 @@ Vue.use(Vuetify, {
     VInput,
     VDataTable,
     VTooltip,
+    VDialog,
     VCheckbox
   }
 });

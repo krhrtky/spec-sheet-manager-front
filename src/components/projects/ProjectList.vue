@@ -40,6 +40,7 @@
       v-model="selected"
       item-key="id"
       select-all
+      hide-actions
       class="elevation-1"
     >
       <template slot="headerCell" slot-scope="props">
@@ -64,10 +65,10 @@
           </td>
           <td>{{ props.item.name }}</td>
           <td class="text-xs-center">{{ props.item.languages }}</td>
-          <td class="text-xs-left">{{ props.item.frameworks }}</td>
-          <td class="text-xs-left">{{ props.item.middlewares }}</td>
-          <td class="text-xs-left">{{ props.item.startDate }}</td>
-          <td class="text-xs-left">{{ props.item.endDate }}</td>
+          <td class="text-xs-center">{{ props.item.frameworks }}</td>
+          <td class="text-xs-center">{{ props.item.middlewares }}</td>
+          <td class="text-xs-center">{{ props.item.startDate }}</td>
+          <td class="text-xs-center">{{ props.item.endDate }}</td>
         </tr>
       </template>
     </v-data-table>
