@@ -64,7 +64,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import MonthPicker from "@/components/commons/MonthPicker.vue";
 import { mapGetters } from "vuex";
-import { Getter } from "vuex-class";
+import { Action, Getter } from "vuex-class";
 
 @Component({
   name: "EditProject",
@@ -85,11 +85,13 @@ export default class EditProject extends Vue {
   }
 
   @Getter("selectedProject")
-  selectedProject!: () => any;
+  selectedProject!: (updateProject: any) => any;
+
+  @Action("updateProject")
+  updateProject!: (updateProject: any) => void;
 
   submit() {
-    console.log(this.selectedProject);
-    this.$data.dialog = false;
+    this.updateProject({ updateProject: this.selectedProject });
   }
 }
 </script>

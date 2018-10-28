@@ -1,5 +1,6 @@
-import Vue from "vue";
-import Vuex from "vuex";
+import Vue from 'vue';
+import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -27,7 +28,6 @@ export default new Vuex.Store({
         frameworks: 'spring',
         middlewares: 'mysql',
         description: 'test project1',
-
       },
       {
         id: 2,
@@ -135,5 +135,37 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    updateProject:({commit}, {updateProject}) => {
+
+      const authKey = localStorage.getItem("SSM-TOKEN");
+      if (!authKey) {
+        return false;
+      }
+
+      axios.post(
+        `http://localhost:8080/api/projects/${updateProject.id}/edit`,
+        {
+          id: updateProject.id,
+          name: updateProject.name,
+          language: updateProject.languages,
+          startDate: updateProject.startDate,
+          endDate: updateProject.endDate,
+          framework: updateProject.frameworks,
+          middleware: updateProject.middlewares,
+          about: updateProject.description,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "SSM-TOKEN" : authKey
+          }
+        }
+      )
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+
+    }
   }
 });
+
+
