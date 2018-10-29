@@ -64,9 +64,9 @@
             ></v-checkbox>
           </td>
           <td>{{ props.item.name }}</td>
-          <td class="text-xs-center">{{ props.item.languages }}</td>
-          <td class="text-xs-center">{{ props.item.frameworks }}</td>
-          <td class="text-xs-center">{{ props.item.middlewares }}</td>
+          <td class="text-xs-center">{{ props.item.language }}</td>
+          <td class="text-xs-center">{{ props.item.framework }}</td>
+          <td class="text-xs-center">{{ props.item.middleware }}</td>
           <td class="text-xs-center">{{ props.item.startDate }}</td>
           <td class="text-xs-center">{{ props.item.endDate }}</td>
         </tr>
@@ -78,6 +78,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
+import { Action } from "vuex-class";
 
 @Component({
   name: "ProjectList",
@@ -86,6 +87,9 @@ import { mapGetters } from "vuex";
   }
 })
 export default class ProjectList extends Vue {
+  @Action("getAllProjects")
+  getAllProjects!: () => any;
+
   data() {
     return {
       search: "",
@@ -96,9 +100,9 @@ export default class ProjectList extends Vue {
           align: "left",
           value: "name"
         },
-        { text: "Languages", value: "languages" },
-        { text: "FrameWorks", value: "frameworks" },
-        { text: "Middlewares", value: "middlewares" },
+        { text: "Language", value: "language" },
+        { text: "FrameWork", value: "framework" },
+        { text: "Middleware", value: "middleware" },
         { text: "Start Date", value: "startDate" },
         { text: "End Date", value: "endDate" }
       ]
@@ -118,7 +122,11 @@ export default class ProjectList extends Vue {
   }
 
   edit() {
-    this.$router.push({ path: `project/edit/${this.$data.selected[0].id}` });
+    this.$router.push({ path: `project/${this.$data.selected[0].id}/edit` });
+  }
+
+  created() {
+    this.getAllProjects();
   }
 }
 </script>

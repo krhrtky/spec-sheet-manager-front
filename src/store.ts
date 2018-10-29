@@ -16,125 +16,69 @@ export default new Vuex.Store({
       params: {
         id: 0
       },
-      "fullPath": "/detail/1"
+      fullPath: ''
     },
     projects: [
       {
-        id: 1,
-        name: 'sample1',
-        languages: 'java',
-        startDate: '2018-01',
-        endDate: '2018-04',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project1',
+        id: 0,
+        name: '',
+        language: '',
+        startDate: '',
+        endDate: '',
+        framework: '',
+        middleware: '',
+        description: '',
       },
       {
-        id: 2,
-        name: 'sample2',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project2',
-      },
-      {
-        id: 3,
-        name: 'sample3',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project3',
-      },
-      {
-        id: 4,
-        name: 'sample4',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'postgresql',
-        description: 'test project4',
-      },
-      {
-        id: 5,
-        name: 'sample5',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'struts',
-        middlewares: 'mysql',
-        description: 'test project5',
-      },
-      {
-        id: 6,
-        name: 'sample6',
-        languages: 'java',
-        startDate: '2018-01',
-        endDate: '2018-04',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project6',
-      },
-      {
-        id: 7,
-        name: 'sample7',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project7',
-      },
-      {
-        id: 8,
-        name: 'sample8',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project8',
-      },
-      {
-        id: 9,
-        name: 'sample9',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project9',
-      },
-      {
-        id: 10,
-        name: 'sample10',
-        languages: 'kotlin',
-        startDate: '2018-05',
-        endDate: '2018-07',
-        frameworks: 'spring',
-        middlewares: 'mysql',
-        description: 'test project10',
+        id: 0,
+        name: '',
+        language: '',
+        startDate: '',
+        endDate: '',
+        framework: '',
+        middleware: '',
+        description: '',
       },
     ],
-
   },
   getters: {
     isAuthenticated: state => state.isAuthenticated,
     projects: state => state.projects,
-    selectedProject: state => state
-        .projects
-        .find(project => project.id == state.route.params.id)
+    selectedProject: state => ''
+      // state
+      //   .projects
+      //   .find(project => project.id == state.route.params.id)
   },
   mutations: {
     setAuthenticated:(state, {authenticated}) => {
-      state.isAuthenticated = authenticated ;
+      state.isAuthenticated = authenticated;
+    },
+    setProjects: (state, projectList) => {
+      state.projects = projectList;
     }
   },
   actions: {
+
+    getAllProjects: ({commit}) => {
+      const authKey = localStorage.getItem("SSM-TOKEN");
+      if (!authKey) {
+        return false;
+      }
+
+      axios
+        .get('http://localhost:8080/api/projects',
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "SSM-TOKEN" : authKey
+            }
+          }
+        )
+        .then(res => commit('setProjects', res.data))
+        .catch(error => console.log(error))
+
+    },
+
     updateProject:({commit}, {updateProject}) => {
 
       const authKey = localStorage.getItem("SSM-TOKEN");
@@ -147,12 +91,12 @@ export default new Vuex.Store({
         {
           id: updateProject.id,
           name: updateProject.name,
-          language: updateProject.languages,
+          language: updateProject.language,
           startDate: updateProject.startDate,
           endDate: updateProject.endDate,
-          framework: updateProject.frameworks,
-          middleware: updateProject.middlewares,
-          about: updateProject.description,
+          framework: updateProject.framework,
+          middleware: updateProject.middleware,
+          about: updateProject.about,
         },
         {
           headers: {
