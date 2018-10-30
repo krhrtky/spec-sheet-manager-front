@@ -125,7 +125,7 @@ a {
 }
 
 .v-content__wrap .v-card {
-  margin: 0 20rem;
+  margin: 25px 20% 0 20%;
   padding: 0 5rem 5rem 5rem;
 }
 </style>
