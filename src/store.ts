@@ -44,10 +44,15 @@ export default new Vuex.Store({
   getters: {
     isAuthenticated: state => state.isAuthenticated,
     projects: state => state.projects,
-    selectedProject: state => ''
-      // state
-      //   .projects
-      //   .find(project => project.id == state.route.params.id)
+    selectedProject: state => {
+      if(state.projects)
+        return state
+          .projects
+          .find(project => project.id == state.route.params.id);
+      else
+        return false;
+    }
+
   },
   mutations: {
     setAuthenticated:(state, {authenticated}) => {

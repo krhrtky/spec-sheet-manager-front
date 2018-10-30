@@ -21,21 +21,21 @@
             @input="date => selectedProject.endDate = date"
             />
           <v-text-field
-            label="Languages"
-            v-model="selectedProject.languages"
+            label="Language"
+            v-model="selectedProject.language"
             required></v-text-field>
           <v-text-field
-            label="FrameWorks"
-            v-model="selectedProject.frameworks"
+            label="FrameWork"
+            v-model="selectedProject.framework"
             required></v-text-field>
           <v-text-field
-            label="Middlewares"
-            v-model="selectedProject.middlewares"
+            label="Middleware"
+            v-model="selectedProject.middleware"
             required></v-text-field>
           <v-textarea
             auto-grow
-            label="Description"
-            v-model="selectedProject.description"
+            label="About"
+            v-model="selectedProject.about"
             rows="5"
           ></v-textarea>
           <v-dialog v-model="dialog" persistent max-width="290">

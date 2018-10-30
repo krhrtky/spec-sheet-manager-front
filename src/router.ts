@@ -41,7 +41,7 @@ const router = new Router({
       component: ProjectList
     },
     {
-      path: "/project/edit/:id",
+      path: "/project/:id/edit",
       name: "Edit Project",
       component: EditProject,
     },
