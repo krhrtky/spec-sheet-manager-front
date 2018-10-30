@@ -91,7 +91,7 @@ export default new Vuex.Store({
         return false;
       }
 
-      axios.post(
+      axios.put(
         `http://localhost:8080/api/projects/${updateProject.id}/edit`,
         {
           id: updateProject.id,
