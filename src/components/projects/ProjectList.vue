@@ -133,7 +133,7 @@ export default class ProjectList extends Vue {
 
 <style scoped>
 .project-list.v-card {
-  margin: 0;
+  margin: 25px 5% 0 5%;
 }
 
 .v-list {
