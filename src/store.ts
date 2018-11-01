@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    loader: true,
     isAuthenticated: false,
     selectedProject: {},
     route: {
@@ -52,7 +53,6 @@ export default new Vuex.Store({
       else
         return false;
     }
-
   },
   mutations: {
     setAuthenticated:(state, {authenticated}) => {
@@ -60,10 +60,32 @@ export default new Vuex.Store({
     },
     setProjects: (state, projectList) => {
       state.projects = projectList;
-    }
+    },
   },
   actions: {
+    initialAuthenticate: async ({commit}) => {
+      const authKey = localStorage.getItem("SSM-TOKEN");
+      if (!authKey) {
+        return false;
+      }
 
+      axios
+        .get(
+          "http://localhost:8080/api",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "SSM-TOKEN" : authKey
+            }
+          }
+        )
+        .then(response => {
+          commit('setAuthenticated',{ authenticated: true });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     getAllProjects: ({commit}) => {
       const authKey = localStorage.getItem("SSM-TOKEN");
       if (!authKey) {
@@ -82,6 +104,23 @@ export default new Vuex.Store({
         .then(res => commit('setProjects', res.data))
         .catch(error => console.log(error))
 
+    },
+    createProject: ({commit}, {updateProject}) => {
+      const authKey = localStorage.getItem("SSM-TOKEN");
+      if (!authKey) {
+        return false;
+      }
+
+      axios.post(
+        'http://localhost:8080/api/projects/create',
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "SSM-TOKEN" : authKey
+          }
+        }
+      )
     },
 
     updateProject:({commit}, {updateProject}) => {

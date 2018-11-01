@@ -48,15 +48,22 @@ const router = new Router({
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
 
-  if (to.path === '/login' || to.path === '/' ||  to.path === '/users/new') {
-    next()
-  } else if (!store.getters.isAuthenticated) {
-    next({path: '/login'})
-  } else {
-    next();
+  if (!from.name) {
+    await store.dispatch('initialAuthenticate');
+
   }
+
+
+  next();
+  // if (to.path === '/login' || to.path === '/' ||  to.path === '/users/new') {
+  //   next()
+  // } else if (!store.getters.isAuthenticated) {
+  //   next({path: '/login'})
+  // } else {
+  //   next();
+  // }
 });
 
 export default router;
