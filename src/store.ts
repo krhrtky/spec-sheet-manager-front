@@ -84,6 +84,7 @@ export default new Vuex.Store({
         })
         .catch(error => {
           console.log(error);
+          localStorage.removeItem('SSM-TOKEN');
         });
     },
     getAllProjects: ({commit}) => {

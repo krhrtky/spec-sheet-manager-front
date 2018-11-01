@@ -32,28 +32,38 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu bottom left>
         <v-btn
-          color="info"
-          v-if="!isAuthenticated"
-          @click="() => this.$router.push('/login')"
+          slot="activator"
+          icon
         >
-          Login
+          <v-icon>more_vert</v-icon>
         </v-btn>
-      <v-btn
-        color="info"
-        v-if="!isAuthenticated"
-        @click="() => this.$router.push('/users/new')"
-      >
-        Sign On
-      </v-btn>
-        <v-btn
-          color="info"
-          v-if="isAuthenticated"
-          @click="() => {
-          this.$router.push('/login')
-          }">
-          logout
-        </v-btn>
+
+        <v-list>
+          <v-list-tile>
+
+            <v-list-tile-title
+              v-if="!isAuthenticated"
+              @click="() => this.$router.push('/login')"
+            >
+              Login
+            </v-list-tile-title>
+            <v-list-tile-title
+            v-if="!isAuthenticated"
+            @click="() => this.$router.push('/users/new')"
+            >
+              Sign On
+            </v-list-tile-title>
+            <v-list-tile-title
+              v-if="isAuthenticated"
+              @click="() => this.$router.push('/login')"
+            >
+              logout
+            </v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -84,9 +94,11 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { Getter } from "vuex-class";
+import VListTile from "vuetify/src/components/VList/VListTile";
 
 @Component({
   name: "App",
+  components: { VListTile },
   computed: {
     ...mapGetters(["isAuthenticated"])
   }
