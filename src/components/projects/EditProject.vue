@@ -91,6 +91,7 @@ export default class EditProject extends Vue {
   updateProject!: (updateProject: any) => void;
 
   submit() {
+    console.log(this.$refs);
     this.updateProject({ updateProject: this.selectedProject });
   }
 }

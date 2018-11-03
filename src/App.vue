@@ -94,11 +94,9 @@
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
 import { Getter } from "vuex-class";
-import VListTile from "vuetify/src/components/VList/VListTile";
 
 @Component({
   name: "App",
-  components: { VListTile },
   computed: {
     ...mapGetters(["isAuthenticated"])
   }

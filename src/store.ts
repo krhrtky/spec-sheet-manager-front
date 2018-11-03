@@ -106,7 +106,7 @@ export default new Vuex.Store({
         .catch(error => console.log(error))
 
     },
-    createProject: ({commit}, {updateProject}) => {
+    createProject: ({commit}, {project}) => {
       const authKey = localStorage.getItem("SSM-TOKEN");
       if (!authKey) {
         return false;
@@ -114,7 +114,9 @@ export default new Vuex.Store({
 
       axios.post(
         'http://localhost:8080/api/projects/create',
-        {},
+        {
+          ...project
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -134,14 +136,7 @@ export default new Vuex.Store({
       axios.put(
         `http://localhost:8080/api/projects/${updateProject.id}/edit`,
         {
-          id: updateProject.id,
-          name: updateProject.name,
-          language: updateProject.language,
-          startDate: updateProject.startDate,
-          endDate: updateProject.endDate,
-          framework: updateProject.framework,
-          middleware: updateProject.middleware,
-          about: updateProject.about,
+          ...updateProject
         },
         {
           headers: {
