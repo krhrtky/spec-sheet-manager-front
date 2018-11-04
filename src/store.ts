@@ -30,16 +30,6 @@ export default new Vuex.Store({
         middleware: '',
         description: '',
       },
-      {
-        id: 0,
-        name: '',
-        language: '',
-        startDate: '',
-        endDate: '',
-        framework: '',
-        middleware: '',
-        description: '',
-      },
     ],
   },
   getters: {

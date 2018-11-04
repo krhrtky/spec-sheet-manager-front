@@ -12,26 +12,16 @@
       ></v-text-field>
     </v-card-title>
     <template>
-
-      <v-layout row wrap>
-
-      <v-flex offset-xs9 >
-          <v-btn
-            color="info"
-            :disabled="this.$data.selected.length !== 1"
-            @click="edit"
-          >
-            Edit
-          </v-btn>
-          <v-btn
-            color="info"
-            :disabled="this.$data.selected.length === 0"
-          >
-            Print
-          </v-btn>
-      </v-flex>
-      </v-layout>
-    </template>
+      <v-btn
+        small
+        absolute
+        top
+        right
+        fab
+        @click="() => this.$router.push('/addProject')"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
 
     <v-data-table
       :headers="headers"
@@ -55,7 +45,6 @@
       </template>
       <template slot="items" slot-scope="props">
         <tr @click="select(props.item, $event)">
-
           <td>
             <v-checkbox
               v-model="props.selected"
@@ -64,14 +53,22 @@
             ></v-checkbox>
           </td>
           <td>{{ props.item.name }}</td>
-          <td class="text-xs-center">{{ props.item.language }}</td>
-          <td class="text-xs-center">{{ props.item.framework }}</td>
-          <td class="text-xs-center">{{ props.item.middleware }}</td>
-          <td class="text-xs-center">{{ props.item.startDate }}</td>
-          <td class="text-xs-center">{{ props.item.endDate }}</td>
+          <td>{{ props.item.language }}</td>
+          <td>{{ props.item.framework }}</td>
+          <td>{{ props.item.middleware }}</td>
+          <td>{{ props.item.startDate }}</td>
+          <td>{{ props.item.endDate }}</td>
+          <td>
+          <v-icon
+            @click="edit(props.item.id)"
+          >
+            create
+          </v-icon>
+          </td>
         </tr>
       </template>
     </v-data-table>
+    </template>
   </v-card>
 </template>
 
@@ -104,7 +101,8 @@ export default class ProjectList extends Vue {
         { text: "FrameWork", value: "framework" },
         { text: "Middleware", value: "middleware" },
         { text: "Start Date", value: "startDate" },
-        { text: "End Date", value: "endDate" }
+        { text: "End Date", value: "endDate" },
+        { text: "", value: "" }
       ]
     };
   }
@@ -121,8 +119,9 @@ export default class ProjectList extends Vue {
     }
   }
 
-  edit() {
-    this.$router.push({ path: `project/${this.$data.selected[0].id}/edit` });
+  edit(id: string) {
+    // this.$router.push({ path: `project/${this.$data.selected[0].id}/edit` });
+    this.$router.push({ path: `project/${id}/edit` });
   }
 
   created() {

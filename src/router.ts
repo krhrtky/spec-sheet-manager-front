@@ -26,12 +26,12 @@ const router = new Router({
       component: Login
     },
     {
-      path: "/users/new",
+      path: "/signOn",
       name: "Sign on",
       component: CreateUser
     },
     {
-      path: "/project/new",
+      path: "/addProject",
       name: "Add Project",
       component: NewProject
     },

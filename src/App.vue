@@ -51,7 +51,7 @@
             </v-list-tile-title>
             <v-list-tile-title
             v-if="!isAuthenticated"
-            @click="() => this.$router.push('/users/new')"
+            @click="() => this.$router.push('/signOn')"
             >
               Sign On
             </v-list-tile-title>
@@ -112,7 +112,7 @@ export default class App extends Vue {
       fixed: false,
       items: [
         {
-          path: "/project/new",
+          path: "/addProject",
           title: "Add Project"
         },
         {
