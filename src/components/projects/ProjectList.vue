@@ -13,6 +13,7 @@
     </v-card-title>
     <template>
       <v-btn
+        color="info"
         small
         absolute
         top
@@ -120,7 +121,6 @@ export default class ProjectList extends Vue {
   }
 
   edit(id: string) {
-    // this.$router.push({ path: `project/${this.$data.selected[0].id}/edit` });
     this.$router.push({ path: `project/${id}/edit` });
   }
 

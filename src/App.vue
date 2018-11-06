@@ -57,7 +57,10 @@
             </v-list-tile-title>
             <v-list-tile-title
               v-if="isAuthenticated"
-              @click="() => this.$router.push('/login')"
+              @click="() => {
+              this.logout()
+              this.$router.push('/login')
+              }"
             >
               logout
             </v-list-tile-title>
@@ -92,13 +95,16 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { Getter } from "vuex-class";
 
 @Component({
   name: "App",
   computed: {
     ...mapGetters(["isAuthenticated"])
+  },
+  methods: {
+    ...mapMutations(["logout"])
   }
 })
 export default class App extends Vue {
@@ -136,6 +142,10 @@ a {
 
 .v-content__wrap .v-card {
   margin: 25px 20% 0 20%;
-  padding: 0 5rem 5rem 5rem;
+  padding: 0 5% 5rem 5%;
+}
+
+.v-list {
+  padding-left: 0;
 }
 </style>

@@ -51,6 +51,10 @@ export default new Vuex.Store({
     setProjects: (state, projectList) => {
       state.projects = projectList;
     },
+    logout: state => {
+      localStorage.removeItem('SSM-TOKEN');
+      state.isAuthenticated = false
+    }
   },
   actions: {
     initialAuthenticate: async ({commit}) => {
