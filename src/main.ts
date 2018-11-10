@@ -5,6 +5,9 @@ import App from './App.vue';
 import router from './router';
 import store from "./store";
 import {sync} from 'vuex-router-sync';
+import VeeValidate from 'vee-validate'
+
+Vue.use(VeeValidate);
 
 Vue.config.productionTip = false;
 

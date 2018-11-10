@@ -17,6 +17,8 @@ import {
   VList,
   VMenu,
   VNavigationDrawer,
+  VProgressLinear,
+  VStepper,
   VTextarea,
   VTextField,
   VToolbar,
@@ -47,6 +49,8 @@ Vue.use(Vuetify, {
     VDataTable,
     VTooltip,
     VDialog,
-    VCheckbox
+    VCheckbox,
+    VStepper,
+    VProgressLinear
   }
 });

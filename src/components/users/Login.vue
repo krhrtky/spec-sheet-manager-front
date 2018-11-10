@@ -21,7 +21,13 @@
                   color="info"
                   @click="auth"
           >Login</v-btn>
-          <v-btn color="warning">Clear</v-btn>
+          <v-btn
+            color="warning"
+            @click="() => {
+              this.$data.email = '';
+              this.$data.password = '';
+            }"
+          >Clear</v-btn>
         </v-form>
       </v-card>
     </v-flex>

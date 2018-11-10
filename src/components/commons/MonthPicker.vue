@@ -18,7 +18,9 @@
       :label="title"
       prepend-icon="event"
       readonly
-      require
+      v-validate="'required'"
+      :data-vv-name="title"
+      :error-messages="errors.collect(`${this.$props.title}`)"
     ></v-text-field>
     <v-date-picker
       v-model="date"
@@ -33,11 +35,12 @@
   </v-menu>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   name: "MonthPicker",
+  inject: ["$validator"],
   props: {
     title: {
       type: String,
@@ -52,6 +55,14 @@ import { Component, Vue } from "vue-property-decorator";
   }
 })
 export default class MonthPicker extends Vue {
+  dictionary = {
+    custom: {
+      month: {
+        required: () => `${this.$props.title} Month can not be empty`
+      }
+    }
+  };
+
   data() {
     return {
       menu: false,
@@ -60,11 +71,11 @@ export default class MonthPicker extends Vue {
   }
 
   get date() {
-    return this.initialDate;
+    return this.$props.initialDate;
   }
 
   set date(date) {
-    if (this.initialDate !== date) {
+    if (this.$props.initialDate !== date) {
       this.$emit("input", date);
     }
   }

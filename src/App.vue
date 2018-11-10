@@ -41,27 +41,30 @@
         </v-btn>
 
         <v-list>
-          <v-list-tile>
-
-            <v-list-tile-title
-              v-if="!isAuthenticated"
-              @click="() => this.$router.push('/login')"
-            >
+          <v-list-tile
+            v-if="!isAuthenticated"
+            @click="() => this.$router.push('/login')"
+          >
+            <v-list-tile-title>
               Login
             </v-list-tile-title>
-            <v-list-tile-title
+          </v-list-tile>
+          <v-list-tile
             v-if="!isAuthenticated"
             @click="() => this.$router.push('/signOn')"
-            >
+          >
+            <v-list-tile-title>
               Sign On
             </v-list-tile-title>
-            <v-list-tile-title
-              v-if="isAuthenticated"
-              @click="() => {
+          </v-list-tile>
+          <v-list-tile
+            v-if="isAuthenticated"
+            @click="() => {
               this.logout()
               this.$router.push('/login')
               }"
-            >
+          >
+            <v-list-tile-title>
               logout
             </v-list-tile-title>
           </v-list-tile>

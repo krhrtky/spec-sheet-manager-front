@@ -5,53 +5,170 @@
         <v-card-title primary-title>
           <h1>New Project</h1>
         </v-card-title>
-        <v-form>
-          <v-text-field
-            label="Project Name"
-            v-model="project.name"
-            required></v-text-field>
-          <month-picker
-            title="Start Date"
-            :initialDate="project.startDate"
-            @input="date => project.startDate = date"
-          />
-          <month-picker
-            title="End Date"
-            :initialDate="project.endDate"
-            @input="date => project.endDate = date"
-          />
-          <v-text-field
-            label="Language"
-            v-model="project.language"
-            required></v-text-field>
-          <v-text-field
-            label="FrameWork"
-            v-model="project.framework"
-            required></v-text-field>
-          <v-text-field
-            label="Middleware"
-            v-model="project.middleware"
-            required></v-text-field>
-          <v-textarea
-            auto-grow
-            label="About"
-            v-model="project.about"
-            rows="5"
-          ></v-textarea>
-          <v-dialog v-model="dialog" persistent max-width="290">
-            <v-btn slot="activator" color="primary" dark>Done</v-btn>
-            <v-card>
-              <v-card-title class="headline">Confirm</v-card-title>
-              <v-card-text>Do you want to register?</v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="green darken-1" flat @click.native="dialog = false">Disagree</v-btn>
-                <v-btn color="green darken-1" flat @click="submit">Agree</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-btn color="warning">Cancel</v-btn>
-        </v-form>
+          <v-stepper v-model="e1">
+            <v-stepper-header>
+              <v-stepper-step :complete="e1 > 1" step="1">Input</v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step :complete="e1 > 2" step="2">Confirm</v-stepper-step>
+
+              <v-divider></v-divider>
+
+              <v-stepper-step step="3">Result</v-stepper-step>
+            </v-stepper-header>
+
+            <v-stepper-items>
+              <v-stepper-content step="1">
+                <form>
+                  <v-text-field
+                    label="Project Name"
+                    v-model="project.name"
+                    v-validate="'required'"
+                    data-vv-name="name"
+                    :error-messages="errors.collect('name')"
+                    required></v-text-field>
+                  <month-picker
+                    title="Start Date"
+                    :initialDate="project.startDate"
+                    v-validate="'required'"
+                    data-vv-name="startDate"
+                    :error-messages="errors.collect('startDate')"
+                    ref="startDate"
+                    @input="date => project.startDate = date"
+                  />
+                  <month-picker
+                    title="End Date"
+                    :initialDate="project.endDate"
+                    v-validate="'required'"
+                    data-vv-name="endDate"
+                    :error-messages="errors.collect('endDate')"
+                    ref="endDate"
+                    @input="date => project.endDate = date"
+                  />
+                  <v-text-field
+                    label="Language"
+                    v-model="project.language"
+                    v-validate="'required'"
+                    data-vv-name="language"
+                    :error-messages="errors.collect('language')"
+                    required></v-text-field>
+                  <v-text-field
+                    label="FrameWork"
+                    v-model="project.framework"
+                    v-validate="'required'"
+                    data-vv-name="framework"
+                    :error-messages="errors.collect('framework')"
+                    required></v-text-field>
+                  <v-text-field
+                    label="Middleware"
+                    v-model="project.middleware"
+                    v-validate="'required'"
+                    data-vv-name="middleware"
+                    :error-messages="errors.collect('middleware')"
+                    required></v-text-field>
+                  <v-textarea
+                    auto-grow
+                    label="About"
+                    v-model="project.about"
+                    v-validate="'required'"
+                    data-vv-name="about"
+                    :error-messages="errors.collect('about')"
+                    rows="5"
+                  ></v-textarea>
+                </form>
+
+                <v-btn
+                  color="primary"
+                  @click="confirm"
+                >
+                  Continue
+                </v-btn>
+
+                <v-btn
+                  color="warning"
+                >
+                  Cancel
+                </v-btn>
+              </v-stepper-content>
+
+              <v-stepper-content step="2">
+                <v-form>
+                  <v-text-field
+                    label="Project Name"
+                    v-model="project.name"
+                    disabled
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="Start Date"
+                    v-model="project.startDate"
+                    disabled
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="End Date"
+                    v-model="project.endDate"
+                    disabled
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    label="Language"
+                    v-model="project.language"
+                    required
+                    disabled
+                  ></v-text-field>
+                  <v-text-field
+                    label="FrameWork"
+                    v-model="project.framework"
+                    required
+                    disabled
+                  ></v-text-field>
+                  <v-text-field
+                    label="Middleware"
+                    v-model="project.middleware"
+                    required
+                    disabled
+                  ></v-text-field>
+                  <v-textarea
+                    auto-grow
+                    label="About"
+                    v-model="project.about"
+                    rows="5"
+                    disabled
+                  ></v-textarea>
+                </v-form>
+
+                <v-btn
+                  color="primary"
+                  @click="e1 = 3"
+                >
+                  Continue
+                </v-btn>
+                <v-btn
+                  color="warning"
+                  @click="e1 = 1"
+                >
+                  Back
+                </v-btn>
+
+              </v-stepper-content>
+
+              <v-stepper-content step="3">
+
+                  <component v-bind:is="result"></component>
+
+                <v-btn
+                  color="primary"
+                  @click="e1 = 1"
+                >
+                  Continue
+                </v-btn>
+
+                <v-btn flat>Cancel</v-btn>
+              </v-stepper-content>
+            </v-stepper-items>
+          </v-stepper>
       </v-card>
     </v-flex>
   </v-layout>
@@ -62,18 +179,49 @@
 import { Component, Vue } from "vue-property-decorator";
 import MonthPicker from "@/components/commons/MonthPicker.vue";
 import { Action } from "vuex-class";
+import Progress from "@/components/common/Progress.vue";
 
 @Component({
   name: "NewProject",
   components: {
-    MonthPicker
+    MonthPicker,
+    Progress
   }
 })
 export default class NewProject extends Vue {
+  dictionary = {
+    custom: {
+      name: {
+        required: () => "Name can not be empty"
+      },
+      language: {
+        required: () => "Language can not be empty"
+      },
+      framework: {
+        required: () => "Framework can not be empty"
+      },
+      middleware: {
+        required: () => "Middleware can not be empty"
+      },
+      about: {
+        required: () => "About can not be empty"
+      },
+      startDate: {
+        required: () => "StartDate can not be empty"
+      },
+      endDate: {
+        required: () => "endDate can not be empty"
+      }
+    }
+  };
+
   data() {
     return {
-      dialog: false,
+      valid: false,
+      e1: 0,
+      result: "Progress",
       project: {
+        name: "",
         startDate: "",
         endDate: ""
       }
@@ -82,6 +230,20 @@ export default class NewProject extends Vue {
 
   @Action("createProject")
   createProject!: (project: any) => void;
+
+  async confirm() {
+    const currentFormValid = await this.$validator.validateAll();
+    const startDateValid = await (this.$refs
+      .startDate as any).$validator.validateAll();
+    const endDateFormValid = await (this.$refs
+      .endDate as any).$validator.validateAll();
+
+    if (currentFormValid && startDateValid && endDateFormValid)
+      this.$data.e1 = 2;
+  }
+  mounted() {
+    this.$validator.localize("en", this.dictionary);
+  }
 
   submit() {
     this.createProject({ project: this.$data.project });
