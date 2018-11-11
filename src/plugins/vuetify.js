@@ -1,6 +1,7 @@
 import Vue from "vue";
 import {
   transitions,
+  VAlert,
   VApp,
   VBtn,
   VCard,
@@ -51,6 +52,7 @@ Vue.use(Vuetify, {
     VDialog,
     VCheckbox,
     VStepper,
-    VProgressLinear
+    VProgressLinear,
+    VAlert
   }
 });

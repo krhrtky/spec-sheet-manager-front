@@ -31,6 +31,7 @@ export default new Vuex.Store({
         description: '',
       },
     ],
+    result: false
   },
   getters: {
     isAuthenticated: state => state.isAuthenticated,
@@ -42,7 +43,8 @@ export default new Vuex.Store({
           .find(project => project.id == state.route.params.id);
       else
         return false;
-    }
+    },
+    getResult: state => state.result
   },
   mutations: {
     setAuthenticated:(state, {authenticated}) => {

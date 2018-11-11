@@ -31,18 +31,12 @@
                   <month-picker
                     title="Start Date"
                     :initialDate="project.startDate"
-                    v-validate="'required'"
-                    data-vv-name="startDate"
-                    :error-messages="errors.collect('startDate')"
                     ref="startDate"
                     @input="date => project.startDate = date"
                   />
                   <month-picker
                     title="End Date"
                     :initialDate="project.endDate"
-                    v-validate="'required'"
-                    data-vv-name="endDate"
-                    :error-messages="errors.collect('endDate')"
                     ref="endDate"
                     @input="date => project.endDate = date"
                   />
@@ -141,7 +135,7 @@
 
                 <v-btn
                   color="primary"
-                  @click="e1 = 3"
+                  @click="submit"
                 >
                   Continue
                 </v-btn>
@@ -160,12 +154,17 @@
 
                 <v-btn
                   color="primary"
-                  @click="e1 = 1"
+                  @click="() => this.$router.push('/projects')"
                 >
-                  Continue
+                  Return Projects
                 </v-btn>
 
-                <v-btn flat>Cancel</v-btn>
+                <v-btn
+                  color="warning"
+                  @click="e1 = 2"
+                >
+                  Back
+                </v-btn>
               </v-stepper-content>
             </v-stepper-items>
           </v-stepper>
@@ -178,17 +177,28 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MonthPicker from "@/components/commons/MonthPicker.vue";
-import { Action } from "vuex-class";
-import Progress from "@/components/common/Progress.vue";
+import { Action, Getter } from "vuex-class";
+import Progress from "@/components/commons/Progress.vue";
+import Success from "@/components/commons/Success.vue";
+import Error from "@/components/commons/Error.vue";
+import { mapGetters } from "vuex";
 
 @Component({
   name: "NewProject",
   components: {
     MonthPicker,
-    Progress
+    Progress,
+    Success,
+    Error
+  },
+  computed: {
+    ...mapGetters(["getResult"])
   }
 })
 export default class NewProject extends Vue {
+  $_veeValidate = {
+    validator: "new"
+  };
   dictionary = {
     custom: {
       name: {
@@ -231,22 +241,28 @@ export default class NewProject extends Vue {
   @Action("createProject")
   createProject!: (project: any) => void;
 
+  @Getter("getResult")
+  getResult!: () => boolean;
+
   async confirm() {
     const currentFormValid = await this.$validator.validateAll();
     const startDateValid = await (this.$refs
       .startDate as any).$validator.validateAll();
-    const endDateFormValid = await (this.$refs
+    const endDateValid = await (this.$refs
       .endDate as any).$validator.validateAll();
 
-    if (currentFormValid && startDateValid && endDateFormValid)
+    if (currentFormValid && startDateValid && endDateValid) {
       this.$data.e1 = 2;
+    }
   }
   mounted() {
     this.$validator.localize("en", this.dictionary);
   }
 
   submit() {
+    this.$data.e1 = 3;
     this.createProject({ project: this.$data.project });
+    this.$data.result = this.getResult() ? "Success" : "Error";
   }
 }
 </script>
