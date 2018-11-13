@@ -1,4 +1,6 @@
 <template>
+  <div>
+
   <v-card class="project-list">
     <v-card-title primary-title>
       <h1>Project List</h1>
@@ -71,15 +73,27 @@
     </v-data-table>
     </template>
   </v-card>
+  <v-layout row justify-center>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <edit-project
+        :selectedProject="this.$data.editProject"
+      ></edit-project>
+    </v-dialog>
+  </v-layout>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { mapGetters } from "vuex";
-import { Action } from "vuex-class";
+import { Action, Getter } from "vuex-class";
+import EditProject from "@/components/projects/EditProject.vue";
 
 @Component({
   name: "ProjectList",
+  components: {
+    EditProject
+  },
   computed: {
     ...mapGetters(["projects"])
   }
@@ -88,8 +102,12 @@ export default class ProjectList extends Vue {
   @Action("getAllProjects")
   getAllProjects!: () => any;
 
+  @Getter("selectedProject")
+  selectedProject!: (id: number) => any;
+
   data() {
     return {
+      dialog: false,
       search: "",
       selected: [],
       headers: [
@@ -104,7 +122,9 @@ export default class ProjectList extends Vue {
         { text: "Start Date", value: "startDate" },
         { text: "End Date", value: "endDate" },
         { text: "", value: "" }
-      ]
+      ],
+      editProjectId: 0,
+      editProject: {}
     };
   }
 
@@ -120,8 +140,9 @@ export default class ProjectList extends Vue {
     }
   }
 
-  edit(id: string) {
-    this.$router.push({ path: `project/${id}/edit` });
+  edit(id: number) {
+    this.$data.editProject = this.selectedProject(id);
+    this.$data.dialog = true;
   }
 
   created() {

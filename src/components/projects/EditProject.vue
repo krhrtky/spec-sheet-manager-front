@@ -1,6 +1,4 @@
 <template>
-  <v-layout column wrap>
-    <v-flex>
       <v-card>
         <v-card-title primary-title>
           <h1>Edit Project</h1>
@@ -55,47 +53,54 @@
           </router-link>
         </v-form>
       </v-card>
-    </v-flex>
-  </v-layout>
 
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MonthPicker from "@/components/commons/MonthPicker.vue";
-import { mapGetters } from "vuex";
-import { Action, Getter } from "vuex-class";
+import { Action } from "vuex-class";
 
 @Component({
   name: "EditProject",
+  props: {
+    selectedProject: {
+      type: Object,
+      default: () => ({
+        id: 0,
+        name: "",
+        language: "",
+        startDate: "",
+        endDate: "",
+        framework: "",
+        middleware: "",
+        description: ""
+      }),
+      require: true
+    }
+  },
   components: {
     MonthPicker
-  },
-  computed: {
-    ...mapGetters(["selectedProject"])
   }
 })
 export default class EditProject extends Vue {
-  projectName = "";
-
   data() {
     return {
       dialog: false
     };
   }
 
-  @Getter("selectedProject")
-  selectedProject!: (updateProject: any) => any;
-
   @Action("updateProject")
   updateProject!: (updateProject: any) => void;
 
   submit() {
-    console.log(this.$refs);
-    this.updateProject({ updateProject: this.selectedProject });
+    this.updateProject({ updateProject: this.$props.selectedProject });
   }
 }
 </script>
 
 <style scoped>
+.v-card {
+  padding: 0 5% 10px 5%;
+}
 </style>

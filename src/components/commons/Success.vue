@@ -22,7 +22,7 @@ import { Component, Vue } from "vue-property-decorator";
     }
   }
 })
-export default class MonthPicker extends Vue {}
+export default class Success extends Vue {}
 </script>
 
 <style scoped>

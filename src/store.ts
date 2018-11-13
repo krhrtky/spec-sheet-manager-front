@@ -36,11 +36,11 @@ export default new Vuex.Store({
   getters: {
     isAuthenticated: state => state.isAuthenticated,
     projects: state => state.projects,
-    selectedProject: state => {
+    selectedProject: state => (id: number) => {
       if(state.projects)
         return state
           .projects
-          .find(project => project.id == state.route.params.id);
+          .find(project => project.id == id);
       else
         return false;
     },
