@@ -48,9 +48,12 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <router-link :to="{path: '/projects'}">
-            <v-btn color="warning">Cancel</v-btn>
-          </router-link>
+          <v-btn
+            color="warning"
+            @click="() => this.$emit('close')"
+          >
+            Cancel
+          </v-btn>
         </v-form>
       </v-card>
 

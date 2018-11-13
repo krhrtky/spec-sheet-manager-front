@@ -77,6 +77,7 @@
     <v-dialog v-model="dialog" persistent max-width="600px">
       <edit-project
         :selectedProject="this.$data.editProject"
+        @close="closeEditWindow"
       ></edit-project>
     </v-dialog>
   </v-layout>
@@ -147,6 +148,10 @@ export default class ProjectList extends Vue {
 
   created() {
     this.getAllProjects();
+  }
+
+  closeEditWindow() {
+    this.$data.dialog = false;
   }
 }
 </script>
