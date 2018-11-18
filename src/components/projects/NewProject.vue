@@ -181,7 +181,6 @@ import { Action, Getter } from "vuex-class";
 import Progress from "@/components/commons/Progress.vue";
 import Success from "@/components/commons/Success.vue";
 import Error from "@/components/commons/Error.vue";
-import { mapGetters } from "vuex";
 
 @Component({
   name: "NewProject",
@@ -190,9 +189,6 @@ import { mapGetters } from "vuex";
     Progress,
     Success,
     Error
-  },
-  computed: {
-    ...mapGetters(["getResult"])
   }
 })
 export default class NewProject extends Vue {
@@ -241,8 +237,8 @@ export default class NewProject extends Vue {
   @Action("createProject")
   createProject!: (project: any) => void;
 
-  @Getter("getResult")
-  getResult!: () => boolean;
+  @Getter("getCreateResult")
+  getCreateResult!: () => boolean;
 
   async confirm() {
     const currentFormValid = await this.$validator.validateAll();
@@ -259,10 +255,10 @@ export default class NewProject extends Vue {
     this.$validator.localize("en", this.dictionary);
   }
 
-  submit() {
+  async submit() {
     this.$data.e1 = 3;
-    this.createProject({ project: this.$data.project });
-    this.$data.result = this.getResult() ? "Success" : "Error";
+    await this.createProject({ project: this.$data.project });
+    this.$data.result = this.getCreateResult ? "Success" : "Error";
   }
 }
 </script>
