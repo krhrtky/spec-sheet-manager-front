@@ -150,9 +150,10 @@
 
               <v-stepper-content step="3">
 
-                  <component v-bind:is="result"></component>
+                <component v-bind:is="result"></component>
 
                 <v-btn
+                  v-if="this.getCreateResult"
                   color="primary"
                   @click="() => this.$router.push('/projects')"
                 >
@@ -160,6 +161,7 @@
                 </v-btn>
 
                 <v-btn
+                  v-else
                   color="warning"
                   @click="e1 = 2"
                 >

@@ -50,6 +50,8 @@ const router = new Router({
 
 router.beforeEach(async (to, from, next) => {
 
+  store.commit('setResult', false);
+
   if (!from.name) {
     await store.dispatch('initialAuthenticate');
 
